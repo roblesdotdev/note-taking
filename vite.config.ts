@@ -10,5 +10,8 @@ export default defineConfig({
       plugins: [tailwindcss, autoprefixer],
     },
   },
+  server: {
+    port: Number(process.env.PORT || 3000),
+  },
   plugins: [reactRouter(), tsconfigPaths()],
 });
