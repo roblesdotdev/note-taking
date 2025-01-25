@@ -35,5 +35,8 @@
     "*.md": "mdx",
     "*.xml": "html",
     "*.svg": "html"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
   }
 }

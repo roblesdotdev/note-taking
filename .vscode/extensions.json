@@ -1,5 +1,7 @@
 {
   "recommendations": [
+    "qwtel.sqlite-viewer",
+    "Prisma.prisma",
     "redhat.vscode-yaml",
     "esbenp.prettier-vscode",
     "biomejs.biome"
