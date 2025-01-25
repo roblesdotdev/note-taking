@@ -12,3 +12,7 @@ export async function getNoteById(id: Note['id']) {
 export async function upsertNote(options: Prisma.NoteUpsertArgs) {
   return db.note.upsert({ ...options })
 }
+
+export async function deleteNote(id: Note['id']) {
+  return db.note.delete({ where: { id } })
+}
