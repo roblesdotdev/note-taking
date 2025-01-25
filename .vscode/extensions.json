@@ -1,4 +1,8 @@
 {
-  "recommendations": ["redhat.vscode-yaml", "esbenp.prettier-vscode"],
+  "recommendations": [
+    "redhat.vscode-yaml",
+    "esbenp.prettier-vscode",
+    "biomejs.biome"
+  ],
   "unwantedRecommendations": []
 }
