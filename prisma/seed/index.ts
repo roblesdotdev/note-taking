@@ -1,14 +1,26 @@
 import { db } from '~/utils/db.server'
-import { createFakeNote } from './utils'
+import { createFakeNote, createTags } from './utils'
 
 async function seed() {
   // Clean db
   await db.note.deleteMany({})
+  await db.tag.deleteMany({})
 
   // Insert dumb notes
   Promise.all(
     Array.from({ length: 10 }, async () => {
-      await db.note.create({ data: createFakeNote() })
+      const tags = createTags()
+      await db.note.create({
+        data: {
+          ...createFakeNote(),
+          tags: {
+            connectOrCreate: tags.map(tagName => ({
+              where: { name: tagName },
+              create: { name: tagName },
+            })),
+          },
+        },
+      })
     }),
   )
 }

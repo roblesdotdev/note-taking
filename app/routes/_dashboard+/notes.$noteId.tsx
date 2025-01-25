@@ -1,4 +1,5 @@
 import { Form, Link, redirect } from 'react-router'
+import { ListTags } from '~/components/list-tags'
 import { deleteNote, getNoteById } from '~/utils/notes.server'
 import type { Route } from './+types/notes.$noteId'
 
@@ -51,6 +52,11 @@ export default function NoteDetail({ loaderData }: Route.ComponentProps) {
       </header>
       <div className="flex flex-col gap-2">
         <h1 className="text-lg font-medium">{note.title}</h1>
+        {note.tags.length ? (
+          <ListTags tags={note.tags} />
+        ) : (
+          <span>No tags</span>
+        )}
         <p>{note.content}</p>
       </div>
     </div>

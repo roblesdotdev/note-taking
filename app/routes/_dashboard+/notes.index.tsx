@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { ListTags } from '~/components/list-tags'
 import { getNotes } from '~/utils/notes.server'
 import type { Route } from './+types/notes.index'
 
@@ -18,6 +19,11 @@ export default function NotesRoute({ loaderData }: Route.ComponentProps) {
         {notes.map(note => (
           <li key={note.id}>
             <Link to={`/notes/${note.id}`}>{note.title}</Link>
+            {note.tags.length ? (
+              <ListTags tags={note.tags} />
+            ) : (
+              <span>No tags</span>
+            )}
           </li>
         ))}
       </ul>
