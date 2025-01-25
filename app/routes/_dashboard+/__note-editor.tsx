@@ -8,18 +8,28 @@ import {
 import { parseWithZod } from '@conform-to/zod'
 import { Form, Link } from 'react-router'
 import { z } from 'zod'
-import type { Info } from './+types/notes.new'
+import type { Info } from './+types/notes.$noteId_.edit'
 
 export const NoteEditorSchema = z.object({
+  id: z.string().optional(), // for edit
   title: z.string().min(4),
   content: z.string(),
 })
 
-export function NoteEditor({ actionData }: { actionData: Info['actionData'] }) {
+export function NoteEditor({
+  note,
+  actionData,
+}: {
+  note?: Info['loaderData']['note']
+  actionData?: Info['actionData']
+}) {
   const [form, fields] = useForm({
     shouldValidate: 'onBlur',
     shouldRevalidate: 'onInput',
     lastResult: actionData?.result,
+    defaultValue: {
+      ...note,
+    },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: NoteEditorSchema })
     },
@@ -47,6 +57,7 @@ export function NoteEditor({ actionData }: { actionData: Info['actionData'] }) {
       </header>
       <FormProvider context={form.context}>
         <Form method="post" {...getFormProps(form)}>
+          {note ? <input type="hidden" name="id" value={note.id} /> : null}
           <div className="flex flex-col gap-4">
             <div>
               <input

@@ -9,6 +9,6 @@ export async function getNoteById(id: Note['id']) {
   return db.note.findUnique({ where: { id } })
 }
 
-export async function createNote(data: Prisma.NoteCreateInput) {
-  return db.note.create({ data })
+export async function upsertNote(options: Prisma.NoteUpsertArgs) {
+  return db.note.upsert({ ...options })
 }
