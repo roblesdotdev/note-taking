@@ -6,14 +6,17 @@ import {
   useForm,
 } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
+import { useRef } from 'react'
 import { Form, Link } from 'react-router'
 import { z } from 'zod'
+import { TagSelect } from '~/components/tag-select'
 import type { Info } from './+types/notes.$noteId_.edit'
 
 export const NoteEditorSchema = z.object({
   id: z.string().optional(), // for edit
   title: z.string().min(4),
   content: z.string(),
+  tags: z.preprocess(value => JSON.parse(String(value)), z.string().array()),
 })
 
 export function NoteEditor({
@@ -29,11 +32,15 @@ export function NoteEditor({
     lastResult: actionData?.result,
     defaultValue: {
       ...note,
+      tags: JSON.stringify(note?.tags.map(t => t.name)),
     },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: NoteEditorSchema })
     },
   })
+
+  const tagSelectRef = useRef<{ reset: () => void }>(null)
+
   return (
     <>
       <header className="mb-6 flex items-center justify-between">
@@ -43,6 +50,9 @@ export function NoteEditor({
             className="cursor-pointer hover:underline"
             type="reset"
             {...form.reset.getButtonProps()}
+            onClick={() => {
+              tagSelectRef?.current?.reset()
+            }}
           >
             Cancel
           </button>
@@ -71,6 +81,10 @@ export function NoteEditor({
                 id={fields.title.errorId}
               />
             </div>
+            <TagSelect
+              ref={tagSelectRef}
+              values={note?.tags.map(t => t.name)}
+            />
             <div>
               <textarea
                 {...getTextareaProps(fields.content)}

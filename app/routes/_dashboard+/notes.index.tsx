@@ -22,7 +22,7 @@ export default function NotesRoute({ loaderData }: Route.ComponentProps) {
             {note.tags.length ? (
               <ListTags tags={note.tags} />
             ) : (
-              <span>No tags</span>
+              <span className="block text-sm">No tags</span>
             )}
           </li>
         ))}

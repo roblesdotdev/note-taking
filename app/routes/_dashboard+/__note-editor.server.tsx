@@ -25,15 +25,30 @@ export async function action({ request }: ActionFunctionArgs) {
     return { result: submission.reply() }
   }
 
-  const { id: noteId, ...data } = submission.value
+  const { id: noteId, title, content, tags } = submission.value
 
   const newNote = await upsertNote({
     where: { id: noteId ?? '__new_note__' },
     create: {
-      ...data,
+      title,
+      content,
+      tags: {
+        connectOrCreate: tags.map(tagName => ({
+          where: { name: tagName },
+          create: { name: tagName },
+        })),
+      },
     },
     update: {
-      ...data,
+      title,
+      content,
+      tags: {
+        deleteMany: { name: { notIn: tags.map(tagName => tagName) } },
+        connectOrCreate: tags.map(tagName => ({
+          where: { name: tagName },
+          create: { name: tagName },
+        })),
+      },
     },
   })
 
