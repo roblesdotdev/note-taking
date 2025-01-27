@@ -9,7 +9,7 @@ export function meta() {
 
 export default function Home() {
   return (
-    <div className="grid place-items-center pt-24">
+    <div className="grid px-4 pt-24">
       <div className="flex flex-col items-center gap-4">
         <h1 className="text-xl font-medium">Note Taking</h1>
         <Link to="/notes">Get Started</Link>

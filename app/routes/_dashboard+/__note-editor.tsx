@@ -9,7 +9,7 @@ import { parseWithZod } from '@conform-to/zod'
 import { useRef } from 'react'
 import { Form, Link } from 'react-router'
 import { z } from 'zod'
-import { TagSelect } from '~/components/tag-select'
+import { TagsCombobox } from '../resources+/tags-cb'
 import type { Info } from './+types/notes.$noteId_.edit'
 
 export const NoteEditorSchema = z.object({
@@ -81,10 +81,7 @@ export function NoteEditor({
                 id={fields.title.errorId}
               />
             </div>
-            <TagSelect
-              ref={tagSelectRef}
-              values={note?.tags.map(t => t.name)}
-            />
+            <TagsCombobox initialValues={note?.tags ?? []} />
             <div>
               <textarea
                 {...getTextareaProps(fields.content)}
