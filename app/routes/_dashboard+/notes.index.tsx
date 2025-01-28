@@ -1,10 +1,10 @@
 import { Link } from 'react-router'
 import { ListTags } from '~/components/list-tags'
-import { getNotes } from '~/utils/notes.server'
+import { getPublicNotes } from '~/utils/notes.server'
 import type { Route } from './+types/notes.index'
 
 export async function loader() {
-  const notes = await getNotes()
+  const notes = await getPublicNotes()
   return {
     notes,
   }

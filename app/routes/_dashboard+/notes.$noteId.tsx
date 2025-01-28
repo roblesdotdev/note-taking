@@ -1,16 +1,22 @@
 import { Form, Link, redirect } from 'react-router'
 import { ListTags } from '~/components/list-tags'
-import { deleteNote, getNoteById } from '~/utils/notes.server'
+import { deleteNote, getNoteById, toggleNote } from '~/utils/notes.server'
 import type { Route } from './+types/notes.$noteId'
 
 export async function action({ params, request }: Route.ActionArgs) {
   const formData = await request.formData()
   const intent = formData.get('_intent')
-  if (intent !== 'delete') {
-    throw new Response('Invalid submission', { status: 400 })
+  switch (intent) {
+    case 'delete':
+      await deleteNote(params.noteId)
+      break
+    case 'archive': {
+      await toggleNote(params.noteId)
+      return redirect('/notes/archived')
+    }
+    default:
+      throw new Response('Invalid submission', { status: 400 })
   }
-
-  await deleteNote(params.noteId)
 
   return redirect('/notes')
 }
@@ -45,6 +51,11 @@ export default function NoteDetail({ loaderData }: Route.ComponentProps) {
           >
             <button type="submit" name="_intent" value="delete">
               Delete
+            </button>
+          </Form>
+          <Form method="post">
+            <button type="submit" name="_intent" value="archive">
+              Archive
             </button>
           </Form>
           <Link to="edit">Edit</Link>
