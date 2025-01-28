@@ -9,7 +9,7 @@ import { parseWithZod } from '@conform-to/zod'
 import { useRef } from 'react'
 import { Form, Link } from 'react-router'
 import { z } from 'zod'
-import { TagsCombobox } from '../resources+/tags-cb'
+import { TagsCombobox } from '../../resources+/tags-cb'
 import type { Info } from './+types/notes.$noteId_.edit'
 
 export const NoteEditorSchema = z.object({
