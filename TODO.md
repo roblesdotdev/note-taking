@@ -13,9 +13,9 @@ Your users should be able to:
 - [x] View all their notes
 - [x] View all archived notes
 - [x] View notes with specific tags
-- [ ] Search notes by title, tag, and content
+- [x] Search notes by title, tag, and content
+- [x] Search tags by name
 - [ ] Select their color theme
-- [ ] Select their font theme
 - [x] Receive validation messages if required form fields aren't completed
 - [ ] Navigate the whole app and perform all actions using only their keyboard
 - [ ] View the optimal layout for the interface depending on their device's
