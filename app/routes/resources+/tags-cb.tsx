@@ -163,7 +163,7 @@ export function TagsCombobox({ initialValues }: { initialValues: Option[] }) {
                 key={`${item.name}-${index}`}
                 className={`${
                   highlightedIndex === index ? 'bg-blue-100' : 'bg-white'
-                } ${selectedItem?.id === item.id ? 'font-black' : ''} relative cursor-default select-none py-2 pl-3 pr-9`}
+                } ${selectedItem?.id === item.id ? 'font-black' : ''} relative cursor-default py-2 pr-9 pl-3 select-none`}
                 {...getItemProps({ item, index })}
               >
                 <span className="block truncate">{item.name}</span>
